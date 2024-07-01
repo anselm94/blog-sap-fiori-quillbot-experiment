@@ -4,9 +4,6 @@
       "db": "hana",
       "auth": "xsuaa"
     },
-    "app-service": {
-      "impl": "@sap/low-code-event-handler"
-    },
     "auth": {
       "[development]": {
         "kind": "dummy"
@@ -18,5 +15,12 @@
   },
   "features": {
     "fetch_csrf": true
+  },
+  "cds-plugin-ui5": {
+    "modules": {
+      "aiwriter": {
+        "mountPath": "/aiwriter"
+      }
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "AIWriter",
+    "id": "aiwriter",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -16,7 +16,7 @@
       "toolsId": "ae6f4713-0733-49f1-b484-d2c36df07432"
     },
     "dataSources": {
-      "mainService": {
+      "AIWriterService": {
         "uri": "/odata/v4/aiwriter/",
         "type": "OData",
         "settings": {
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "fullstackcapfioriAIWriter-display": {
-          "semanticObject": "fullstackcapfioriAIWriter",
+        "aiwriter-display": {
+          "semanticObject": "aiwriter",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,11 +74,11 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "AIWriter.i18n.i18n"
+          "bundleName": "aiwriter.i18n.i18n"
         }
       },
       "": {
-        "dataSource": "mainService",
+        "dataSource": "AIWriterService",
         "preload": true,
         "settings": {
           "synchronizationMode": "None",
