@@ -1,23 +1,3 @@
-## Application Details
-|               |
-| ------------- |
-|**Generation Date and Time**<br>Fri Jun 28 2024 06:13:18 GMT+0000 (Coordinated Universal Time)|
-|**App Generator**<br>@sap/generator-fiori-elements|
-|**App Generator Version**<br>1.14.0|
-|**Generation Platform**<br>SAP Business Application Studio|
-|**Template Used**<br>List Report Page V4|
-|**Service Type**<br>Local Cap|
-|**Service URL**<br>http://localhost:4004/odata/v4/aiwriter/
-|**Module Name**<br>AIWriter|
-|**Application Title**<br>AI Writer|
-|**Namespace**<br>|
-|**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.108.7|
-|**Enable Code Assist Libraries**<br>False|
-|**Enable TypeScript**<br>False|
-|**Add Eslint configuration**<br>False|
-|**Main Entity**<br>Documents|
-
 ## AIWriter
 
 AI-based Writer
