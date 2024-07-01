@@ -13,7 +13,7 @@
     "baseUrl": "./",
     "types": ["@sapui5/types", "jquery"],
     "paths": {
-      "com/sap/sus/sct/sct-ai-reporting-assistant-ui/*": ["./webapp/*"]
+      "aiwriter/*": ["./webapp/*"]
     }
   },
   "include": ["./webapp/**/*", "types/**/*.d.ts"]
