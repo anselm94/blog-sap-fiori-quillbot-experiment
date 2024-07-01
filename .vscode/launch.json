@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run fullstackcapfiori",
+      "name": "Run aiwriter",
       "runtimeExecutable": "cds",
       "request": "launch",
       "args": [
@@ -11,12 +11,12 @@
       ],
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
-      "type": "pwa-node",
+      "type": "node",
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "PreLaunchTask for Run fullstackcapfiori",
+      "preLaunchTask": "PreLaunchTask for Run aiwriter",
       "envFile": "${workspaceFolder}/env/.env1",
       "env": {
-        "run.config": "{\"handlerId\":\"lcap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/fullstackcapfiori\\\",\\\"profileName\\\":\\\"\\\"}\"}"
+        "run.config": "{\"handlerId\":\"lcap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/aiwriter\\\",\\\"profileName\\\":\\\"\\\"}\"}"
       }
     }
   ]

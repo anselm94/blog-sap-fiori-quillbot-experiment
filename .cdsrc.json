@@ -1,1 +1,22 @@
-{}
+{
+  "requires": {
+    "[production]": {
+      "db": "hana",
+      "auth": "xsuaa"
+    },
+    "app-service": {
+      "impl": "@sap/low-code-event-handler"
+    },
+    "auth": {
+      "[development]": {
+        "kind": "dummy"
+      },
+      "[production]": {
+        "kind": "xsuaa"
+      }
+    }
+  },
+  "features": {
+    "fetch_csrf": true
+  }
+}

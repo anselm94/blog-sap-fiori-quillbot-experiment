@@ -1,9 +1,9 @@
 {
-  "name": "fullstackcapfiori",
+  "name": "aiwriter",
   "version": "1.0.0",
   "description": "A Fullstack Workspace Starter - CAP & Fiori",
   "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "private": true,
   "dependencies": {
     "@sap-cloud-sdk/http-client": "^3.16.0",
@@ -20,9 +20,10 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7.9.4",
     "@sap/dev-cap-tools": "^1.31.0",
     "@sap/eslint-plugin-cds": "^3",
-    "@sap/ux-specification": "^1.108.32",
+    "@sap/ux-specification": "^1.120.13",
     "eslint": "^9"
   },
   "scripts": {
@@ -30,32 +31,10 @@
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
-    "watch-AIWriter": "cds watch --open AIWriter/webapp/index.html?sap-ui-xx-viewCache=false"
-  },
-  "cds": {
-    "requires": {
-      "[production]": {
-        "db": "hana",
-        "auth": "xsuaa"
-      },
-      "app-service": {
-        "impl": "@sap/low-code-event-handler"
-      },
-      "auth": {
-        "[development]": {
-          "kind": "dummy"
-        },
-        "[production]": {
-          "kind": "xsuaa"
-        }
-      }
-    },
-    "features": {
-      "fetch_csrf": true
-    }
+    "watch-aiwriter": "cds watch --open aiwriter/webapp/test/flpSandbox.html?sap-ui-xx-viewCache=false"
   },
   "lcap": true,
   "sapux": [
-    "app/AIWriter"
+    "app/aiwriter"
   ]
 }

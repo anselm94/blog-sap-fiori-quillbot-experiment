@@ -1,2 +1,1 @@
-
-using from './AIWriter/annotations';
+using from './aiwriter/annotations';

@@ -32,7 +32,7 @@
       }
     },
     {
-      "label": "PreLaunchTask for Run fullstackcapfiori",
+      "label": "PreLaunchTask for Run aiwriter",
       "type": "process",
       "command": "npx",
       "args": [
@@ -48,12 +48,12 @@
     },
     {
       "type": "dpt.ptdeploy",
-      "label": "Deploy fullstackcapfiori",
+      "label": "Deploy aiwriter",
       "taskType": "Deploy"
     },
     {
       "type": "dpt.ptdeploy",
-      "label": "Enable Discovery and Deploy fullstackcapfiori",
+      "label": "Enable Discovery and Deploy aiwriter",
       "taskType": "Deploy",
       "enableDiscovery": "true"
     }
