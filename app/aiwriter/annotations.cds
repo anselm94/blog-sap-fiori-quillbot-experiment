@@ -1,34 +1,28 @@
 using AiWriterService as service from '../../srv/services';
-annotate service.Documents with @(
-    UI.FieldGroup #GeneratedGroup : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type : 'UI.DataField',
-                Label : 'title',
-                Value : title,
-            },
-            {
-                $Type : 'UI.DataField',
-                Label : 'content',
-                Value : content,
-            },
-        ],
-    },
-    UI.Facets : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
-            Label : 'General Information',
-            Target : '@UI.FieldGroup#GeneratedGroup',
-        },
-    ],
-    UI.LineItem : [
-        {
-            $Type : 'UI.DataField',
-            Label : 'title',
-            Value : title,
-        }
-    ],
-);
 
+annotate service.Documents with @(UI: {
+    HeaderInfo                         : {
+        TypeName      : '{i18n>Document}',
+        TypeNamePlural: '{i18n>Documents}',
+        Title         : {Value: title, },
+    },
+    LineItem                           : [
+        {
+            Value            : title,
+            ![@UI.Importance]: #High,
+        },
+        {Value: modifiedAt, },
+        {Value: modifiedBy, },
+        {Value: createdBy, },
+    ],
+    SelectionPresentationVariant #table: {
+        PresentationVariant: {
+            Visualizations: ['@UI.LineItem', ],
+            SortOrder     : [{
+                Property  : createdAt,
+                Descending: true,
+            }, ],
+        },
+        SelectionVariant   : {SelectOptions: [], },
+    }
+}, );

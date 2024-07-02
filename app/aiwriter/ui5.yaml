@@ -16,14 +16,6 @@ framework:
       development: true
     - name: themelib_sap_horizon
       optional: true
-    # - name: sap.chart
-    # - name: sap.fe.navigation
-    # - name: sap.insights
-    # - name: sap.suite.ui.microchart
-    # - name: sap.tnt
-    # - name: sap.ui.core
-    # - name: sap.ui.layout
-    # - name: sap.ui.unified
 
 builder:
   customTasks:

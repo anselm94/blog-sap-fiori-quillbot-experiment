@@ -93,7 +93,11 @@
       }
     },
     "resources": {
-      "css": []
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
     },
     "routing": {
       "config": {},
@@ -117,7 +121,7 @@
           "options": {
             "settings": {
               "contextPath": "/Documents",
-              "variantManagement": "Page",
+              "variantManagement": "None",
               "navigation": {
                 "Documents": {
                   "detail": {
@@ -129,9 +133,16 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  },
+                  "columns": {
+                    "DataField::title": {
+                      "availability": "Default"
+                    }
                   }
                 }
-              }
+              },
+              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#table",
+              "initialLoad": "Enabled"
             }
           }
         },
@@ -141,8 +152,59 @@
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/Documents"
+              "editableHeaderContent": true,
+              "contextPath": "/Documents",
+              "variantManagement": "None",
+              "content": {
+                "body": {
+                  "sections": {
+                    "SectionRichTextEditor": {
+                      "template": "aiwriter.ext.fragment.SectionRichTextEditor",
+                      "title": "{i18n>writeWithAi}"
+                    }
+                  }
+                },
+                "footer": {
+                  "actions": {
+                    "content-paraphrase": {
+                      "press": "aiwriter.ext.controller.Actions.onParaphraseContentAction",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>paraphrase}"
+                    },
+                    "content-summarize": {
+                      "press": "aiwriter.ext.controller.Actions.onSummarizeContentAction",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>summarize}",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "content-paraphrase"
+                      }
+                    },
+                    "content-translate": {
+                      "press": "aiwriter.ext.controller.Actions.onTranslateContentAction",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>translate}",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "content-summarize"
+                      }
+                    },
+                    "content-suggesttext": {
+                      "press": "aiwriter.ext.controller.Actions.onSuggestContentAction",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>suggestText}",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "content-translate"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
