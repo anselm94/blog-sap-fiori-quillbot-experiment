@@ -20,7 +20,7 @@ service AiWriterService {
     }
 
     type SummarizeType : String enum {
-        keysentences;
+        keySentences;
         paragraph;
     }
 

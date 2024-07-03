@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+>
+    <Dialog title="Translate Content" busy="{dialog>/busy}" busyIndicatorDelay="0">
+        <content>
+            <f:SimpleForm >
+                <Label text="Language"/>
+                <Select selectedItem="{dialog>/translate/langCode}">
+                    <core:Item key="en" text="English" />
+                    <core:Item key="fr" text="French" />
+                    <core:Item key="de" text="German" />
+                    <core:Item key="es" text="Spanish" />
+                    <core:Item key="pt" text="Portuguese" />
+                    <core:Item key="it" text="Italian" />
+                </Select>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="{i18n>translate}" type="Emphasized" press=".onDialogTranslateActionPress"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".onDialogTranslateCancelPress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+>
+    <Dialog title="Summarize Content" busy="{dialog>/busy}" busyIndicatorDelay="0">
+        <content>
+            <f:SimpleForm >
+                <Label text="Mode"/>
+                <RadioButtonGroup select=".onDialogSummarizeTypeSelect">
+                    <RadioButton text="Bulleted Points" selected="{:= ${dialog>/summarize/summarizeType} === 'keySentences' }" />
+                    <RadioButton text="Paragraph" selected="{:= ${dialog>/summarize/summarizeType} === 'paragraph' }" />
+                </RadioButtonGroup>
+                <Label text="Summary Length"/>
+                <Select selectedItem="{dialog>/summarize/contentLength}">
+                    <core:Item key="short" text="Short" />
+                    <core:Item key="medium" text="Medium" />
+                    <core:Item key="long" text="Long" />
+                </Select>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="{i18n>summarize}" type="Emphasized" press=".onDialogSummarizeActionPress"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".onDialogSummarizeCancelPress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

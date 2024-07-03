@@ -1,20 +1,34 @@
+import type {
+  ContentLength,
+  ISOLanguageCode,
+  ParaphraseMode,
+  SummarizeType,
+  SynonymUsage,
+} from "#cds-models/AiWriterService";
 import BaseControllerExtension from "sap/fe/core/controllerextensions/BaseControllerExtension";
+import ExtensionAPI from "sap/fe/templates/ObjectPage/ExtensionAPI";
 import Dialog from "sap/m/Dialog";
 import MessageToast from "sap/m/MessageToast";
+import { RadioButtonGroup$SelectEvent } from "sap/m/RadioButtonGroup";
 import UI5Element from "sap/ui/core/Element";
+import JSONModel from "sap/ui/model/json/JSONModel";
+import ODataModel from "sap/ui/model/odata/v4/ODataModel";
 import RichTextEditor from "sap/ui/richtexteditor/RichTextEditor";
 import type { Editor as TinyMceEditor } from "tinymce";
 import * as utils from "../handler/utils";
-import ExtensionAPI from "sap/fe/templates/ObjectPage/ExtensionAPI";
-import JSONModel from "sap/ui/model/json/JSONModel";
-import ODataModel from "sap/ui/model/odata/v4/ODataModel";
-import type { ParaphraseMode, SynonymUsage } from "#cds-models/AiWriterService";
 
 type ModelDialogData = {
   busy: boolean;
   paraphrase: {
     paraphraseMode: ParaphraseMode;
     synonymUsage: SynonymUsage;
+  };
+  summarize: {
+    summarizeType: SummarizeType;
+    contentLength: ContentLength;
+  };
+  translate: {
+    langCode: ISOLanguageCode;
   };
 };
 
@@ -28,6 +42,8 @@ export default class DocumentObjectPage extends BaseControllerExtension {
   };
 
   private dialogContentParaphrase: Dialog;
+  private dialogContentSummarize: Dialog;
+  private dialogContentTranslate: Dialog;
 
   static overrides = {
     /**
@@ -51,6 +67,13 @@ export default class DocumentObjectPage extends BaseControllerExtension {
         paraphraseMode: "standard",
         synonymUsage: "fewer",
       },
+      summarize: {
+        summarizeType: 'paragraph',
+        contentLength: 'short'
+      },
+      translate: {
+        langCode: 'en',
+      }
     } as ModelDialogData);
   }
 
@@ -97,15 +120,29 @@ export default class DocumentObjectPage extends BaseControllerExtension {
     this.dialogContentParaphrase.open();
   }
 
-  onSummarizeContentAction() {
-    MessageToast.show("Custom handler invoked.");
+  async onSummarizeContentAction() {
+    this.dialogContentSummarize = (await this.base
+      .getExtensionAPI()
+      .loadFragment({
+        name: "aiwriter.ext.fragment.DialogContentSummarize",
+        id: "dialogcontentsummarize",
+        controller: this,
+      })) as Dialog;
+    this.dialogContentSummarize.open();
   }
 
-  onTranslateContentAction() {
-    MessageToast.show("Custom handler invoked.");
+  async onTranslateContentAction() {
+    this.dialogContentTranslate = (await this.base
+      .getExtensionAPI()
+      .loadFragment({
+        name: "aiwriter.ext.fragment.DialogContentTranslate",
+        id: "dialogcontenttranslate",
+        controller: this,
+      })) as Dialog;
+    this.dialogContentTranslate.open();
   }
 
-  onSuggestContentAction() {
+  async onSuggestContentAction() {
     MessageToast.show("Custom handler invoked.");
   }
 
@@ -152,5 +189,84 @@ export default class DocumentObjectPage extends BaseControllerExtension {
     this.dialogContentParaphrase.destroy();
   }
 
-  onDialogSummarizeActionPress() {}
+  async onDialogSummarizeActionPress() {
+    const dialogModel = this.getView().getModel("dialog") as JSONModel;
+    const dialogData = dialogModel.getProperty("/") as ModelDialogData;
+
+    dialogModel.setProperty("/busy", true);
+    const resData = (await this.base
+      .getExtensionAPI()
+      .getEditFlow()
+      .invokeAction("summarizeContent", {
+        model: this.getView().getModel() as ODataModel,
+        skipParameterDialog: true,
+        parameterValues: [
+          {
+            name: "content",
+            value: this.getTextFromSelection(),
+          },
+          {
+            name: "summarizeType",
+            value: dialogData.summarize.summarizeType,
+          },
+          {
+            name: "contentLength",
+            value: dialogData.summarize.contentLength,
+          },
+        ],
+      })) as { value: string };
+    dialogModel.setProperty("/busy", false);
+
+    this.setTextOnSelection(resData.value);
+
+    this.dialogContentSummarize.close();
+    this.dialogContentSummarize.destroy();
+  }
+
+  onDialogSummarizeTypeSelect(event: RadioButtonGroup$SelectEvent) {
+    const selectedIndex = event.getParameter("selectedIndex");
+
+    const dialogModel = this.getView().getModel("dialog") as JSONModel;
+    dialogModel.setProperty("/summarize/summarizeType", selectedIndex === 0 ? "keySentences" : "paragraph");
+  }
+
+  onDialogSummarizeCancelPress() {
+    this.dialogContentSummarize.close();
+    this.dialogContentSummarize.destroy();
+  }
+
+  async onDialogTranslateActionPress() {
+    const dialogModel = this.getView().getModel("dialog") as JSONModel;
+    const dialogData = dialogModel.getProperty("/") as ModelDialogData;
+
+    dialogModel.setProperty("/busy", true);
+    const resData = (await this.base
+      .getExtensionAPI()
+      .getEditFlow()
+      .invokeAction("translateContent", {
+        model: this.getView().getModel() as ODataModel,
+        skipParameterDialog: true,
+        parameterValues: [
+          {
+            name: "content",
+            value: this.getTextFromSelection(),
+          },
+          {
+            name: "langCode",
+            value: dialogData.translate.langCode,
+          },
+        ],
+      })) as { value: string };
+    dialogModel.setProperty("/busy", false);
+
+    this.setTextOnSelection(resData.value);
+
+    this.dialogContentTranslate.close();
+    this.dialogContentTranslate.destroy();
+  }
+
+  onDialogTranslateCancelPress() {
+    this.dialogContentTranslate.close();
+    this.dialogContentTranslate.destroy();
+  }
 }
