@@ -167,13 +167,13 @@
                 "footer": {
                   "actions": {
                     "content-paraphrase": {
-                      "press": "aiwriter.ext.controller.Actions.onParaphraseContentAction",
+                      "press": ".extension.aiwriter.ext.controller.DocumentObjectPage.onParaphraseContentAction",
                       "visible": true,
                       "enabled": true,
                       "text": "{i18n>paraphrase}"
                     },
                     "content-summarize": {
-                      "press": "aiwriter.ext.controller.Actions.onSummarizeContentAction",
+                      "press": ".extension.aiwriter.ext.controller.DocumentObjectPage.onSummarizeContentAction",
                       "visible": true,
                       "enabled": true,
                       "text": "{i18n>summarize}",
@@ -183,7 +183,7 @@
                       }
                     },
                     "content-translate": {
-                      "press": "aiwriter.ext.controller.Actions.onTranslateContentAction",
+                      "press": ".extension.aiwriter.ext.controller.DocumentObjectPage.onTranslateContentAction",
                       "visible": true,
                       "enabled": true,
                       "text": "{i18n>translate}",
@@ -193,7 +193,7 @@
                       }
                     },
                     "content-suggesttext": {
-                      "press": "aiwriter.ext.controller.Actions.onSuggestContentAction",
+                      "press": ".extension.aiwriter.ext.controller.DocumentObjectPage.onSuggestContentAction",
                       "visible": true,
                       "enabled": true,
                       "text": "{i18n>suggestText}",
@@ -206,6 +206,15 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#aiwriter::DocumentsObjectPage": {
+            "controllerName": "aiwriter.ext.controller.DocumentObjectPage"
           }
         }
       }

@@ -1,0 +1,46 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+>
+    <Dialog title="Paraphrase Content" busy="{dialog>/busy}" busyIndicatorDelay="0">
+        <content>
+            <HBox class="sapUiSmallMargin">
+                <VBox width="100%">
+                    <Label text="Mode"/>
+                    <Select selectedItem="{dialog>/paraphrase/paraphraseMode}">
+                        <core:Item key="standard" text="Standard" />
+                        <core:Item key="fluency" text="Fluency" />
+                        <core:Item key="formal" text="Formal" />
+                        <core:Item key="academic" text="Academic" />
+                        <core:Item key="simple" text="Simple" />
+                        <core:Item key="creative" text="Creative" />
+                        <core:Item key="expand" text="Expand" />
+                        <core:Item key="shorten" text="Shorten" />
+                    </Select>
+                    <layoutData>
+                        <FlexItemData growFactor="1"/>
+                    </layoutData>
+                </VBox>
+                <VBox width="100%">
+                    <Label text="Synonyms"/>
+                     <Select selectedItem="{dialog>/paraphrase/synonymUsage}">
+                        <core:Item key="fewer" text="Fewer" />
+                        <core:Item key="more" text="More" />
+                    </Select>
+                    <layoutData>
+                        <FlexItemData growFactor="1"/>
+                    </layoutData>
+                </VBox>
+            </HBox>
+        </content>
+        <beginButton>
+            <Button text="{i18n>paraphrase}" type="Emphasized" press=".onDialogParaphraseActionPress"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press=".onDialogParaphraseCancelPress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

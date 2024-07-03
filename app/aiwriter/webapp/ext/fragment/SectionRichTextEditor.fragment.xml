@@ -6,7 +6,7 @@
     xmlns:macros="sap.fe.macros"
     xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
 >
-    <VBox core:require="{ handler: 'aiwriter/ext/controller/SectionRichTextEditor'}">
+    <VBox>
         <macros:RichTextEditorWithMetadata
             metaPath="content"
             id="rteContent"

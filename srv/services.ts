@@ -6,7 +6,7 @@ class AiWriterService extends cds.ApplicationService {
       require("#cds-models/AiWriterService") as typeof import("#cds-models/AiWriterService");
 
     this.on(paraphraseContent, async (req) => {
-      const { content, frequency, mode } = req.data;
+      const { content, synonymUsage, paraphraseMode } = req.data;
 
       return "hello";
     });

@@ -14,7 +14,7 @@ service AiWriterService {
         shorten;
     }
 
-    type ImproveFrequency : String enum {
+    type SynonymUsage : String enum {
         fewer;
         more;
     }
@@ -30,14 +30,16 @@ service AiWriterService {
         long;
     }
 
+    type ISOLanguageCode : String(3);
+
     entity Documents as projection on aiwriter.Documents
         actions {
             action suggestContent(instruction : String(100), cursorPos : Integer) returns Documents;
         };
 
-    action paraphraseContent(content : String, mode: ParaphraseMode, frequency : ImproveFrequency) returns String;
-    action summarizeContent(content : String, type : SummarizeType, length : ContentLength) returns String;
-    action translateContent(content : String, langCode : String(3)) returns String;
+    action paraphraseContent(content : String, paraphraseMode: ParaphraseMode, synonymUsage : SynonymUsage) returns String;
+    action summarizeContent(content : String, summarizeType : SummarizeType, contentLength : ContentLength) returns String;
+    action translateContent(content : String, langCode : ISOLanguageCode) returns String;
 }
 
 annotate AiWriterService.Documents with @odata.draft.enabled;

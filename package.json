@@ -23,6 +23,7 @@
     "@sap/eslint-plugin-cds": "^3",
     "@sap/ux-specification": "^1.120.13",
     "@tsconfig/node20": "^20.1.4",
+    "@types/tinymce": "^4.6.9",
     "cds-plugin-ui5": "^0.9.3",
     "eslint": "^9",
     "shx": "^0.3.4",

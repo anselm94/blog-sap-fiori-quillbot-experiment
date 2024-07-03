@@ -8,13 +8,14 @@
     "strict": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
-    "rootDir": "./webapp",
+    "rootDir": "../../",
     "outDir": "./dist",
     "baseUrl": "./",
     "types": ["@sapui5/types", "jquery"],
     "paths": {
-      "aiwriter/*": ["./webapp/*"]
+      "aiwriter/*": ["./webapp/*"],
+      "#cds-models/*": ["../../@cds-models/*/index.ts"]
     }
   },
-  "include": ["./webapp/**/*", "types/**/*.d.ts"]
+  "include": ["./webapp/**/*", "types/**/*.d.ts"],
 }
