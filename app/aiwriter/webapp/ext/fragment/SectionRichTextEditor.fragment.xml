@@ -4,21 +4,19 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:u="sap.ui.unified"
     xmlns:macros="sap.fe.macros"
+    xmlns:richtexteditor="sap.fe.macros.richtexteditor"
     xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
 >
     <VBox>
-        <macros:RichTextEditorWithMetadata
-            metaPath="content"
-            id="rteContent"
-        >
+        <macros:RichTextEditor id="rteContent" value="{content}" readOnly="false" required="true">
             <macros:buttonGroups>
-                <macros.richtexteditor:ButtonGroup
+                <richtexteditor:ButtonGroup
                     name="font-style"
                     visible="true"
                     priority="10"
                     buttons="bold,italic,underline"
                 />
             </macros:buttonGroups>
-        </macros:RichTextEditorWithMetadata>
+        </macros:RichTextEditor>
     </VBox>
 </core:FragmentDefinition>
