@@ -17,6 +17,7 @@
     "passport": "^0.7.0"
   },
   "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
     "@cap-js/sqlite": "^1",
     "@sap/cds-dk": "^7.9.4",
     "@sap/eslint-plugin-cds": "^3",
@@ -24,6 +25,7 @@
     "@tsconfig/node20": "^20.1.4",
     "cds-plugin-ui5": "^0.9.3",
     "eslint": "^9",
+    "shx": "^0.3.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.2"
   },
@@ -31,11 +33,19 @@
     "start": "cds-serve",
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
-    "cds-watch": "cds-ts watch --open",
-    "watch-aiwriter": "cds-ts watch --open aiwriter/index.html?sap-ui-xx-viewCache=false"
+    "cds-watch": "cds-ts watch --open aiwriter/index.html?sap-ui-xx-viewCache=false",
+    "build": "npm run build:clean && npm run build:cds-types && npm run build:cds && npm run build:ts && npm run build:copy",
+    "build:clean": "shx rm -rf gen",
+    "build:cds-types": "cds-typer \"*\" --outputDirectory @cds-models",
+    "build:ts": "tsc -P tsconfig.json",
+    "build:cds": "cds build --production",
+    "build:copy": "shx cp -r @cds-models gen/srv && shx cp -r node_modules gen/srv"
   },
   "lcap": true,
   "sapux": [
     "app/aiwriter"
-  ]
+  ],
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
 }

@@ -1,15 +1,15 @@
 {
-    "extends": "@tsconfig/node20",
-    "compilerOptions": {
-      "baseUrl": ".",
-      "lib": ["dom", "es2023"],
-      "module": "CommonJS",
-      "moduleResolution": "node",
-      "strictPropertyInitialization": false, // @cds-models/cds/hana/index.ts leads to not initialized error
-      "paths": {
-        "#cds-models/*": ["./@cds-models/*/index.ts"]
-      }
-    },
-    "include": ["srv/**/*.ts", "db/**/*.ts", "test/**/*.ts"]
-  }
-  
+  "extends": "@tsconfig/node20",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "gen/srv/srv",
+    "lib": ["dom", "es2023"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "paths": {
+      "#cds-models/*": ["./@cds-models/*/index.ts"]
+    }
+  },
+  "include": ["srv/**/*.ts", "db/**/*.ts", "test/**/*.ts"]
+}
