@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:macros="sap.fe.macros"
+    xmlns:richtexteditor="sap.fe.macros.richtexteditor"
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+>
+    <core:Fragment fragmentName='aiwriter.ext.fragment.RichTextEditor' type='JS'/>
+</core:FragmentDefinition>

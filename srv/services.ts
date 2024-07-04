@@ -2,7 +2,7 @@ import cds from "@sap/cds";
 
 class AiWriterService extends cds.ApplicationService {
   async init() {
-    const { paraphraseContent, summarizeContent, translateContent } =
+    const { paraphraseContent, summarizeContent, translateContent, Document } =
       require("#cds-models/AiWriterService") as typeof import("#cds-models/AiWriterService");
 
     this.on(paraphraseContent, async (req) => {
@@ -22,6 +22,11 @@ class AiWriterService extends cds.ApplicationService {
 
       return "translated content";
     });
+
+    this.on(Document.actions.suggestContent, async (req) => {
+      const { instruction, cursorPos } = req.data;
+    });
+
     return super.init();
   }
 }

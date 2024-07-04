@@ -25,4 +25,10 @@ annotate service.Documents with @(UI: {
         },
         SelectionVariant   : {SelectOptions: [], },
     }
-}, );
+}, ) actions {
+    @(
+        cds.odata.bindingparameter.name: '_it',
+        Common.SideEffects             : {TargetProperties: ['_it/content']}
+    )
+    suggestContent
+};

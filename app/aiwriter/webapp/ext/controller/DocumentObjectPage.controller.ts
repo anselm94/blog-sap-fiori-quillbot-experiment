@@ -5,13 +5,13 @@ import type {
   SummarizeType,
   SynonymUsage,
 } from "#cds-models/AiWriterService";
-import BaseControllerExtension from "sap/fe/core/controllerextensions/BaseControllerExtension";
-import ExtensionAPI from "sap/fe/templates/ObjectPage/ExtensionAPI";
+import PageController from "sap/fe/core/PageController";
 import Dialog from "sap/m/Dialog";
-import MessageToast from "sap/m/MessageToast";
 import { RadioButtonGroup$SelectEvent } from "sap/m/RadioButtonGroup";
 import UI5Element from "sap/ui/core/Element";
+import ControllerExtension from "sap/ui/core/mvc/ControllerExtension";
 import JSONModel from "sap/ui/model/json/JSONModel";
+import Context from "sap/ui/model/odata/v4/Context";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel";
 import RichTextEditor from "sap/ui/richtexteditor/RichTextEditor";
 import type { Editor as TinyMceEditor } from "tinymce";
@@ -36,16 +36,14 @@ type ModelDialogData = {
  * @namespace aiwriter.ext.controller
  * @controller
  */
-export default class DocumentObjectPage extends BaseControllerExtension {
-  declare base: {
-    getExtensionAPI(): ExtensionAPI;
-  };
+export default class DocumentObjectPage extends ControllerExtension {
+  declare base: PageController;
 
   private dialogContentParaphrase: Dialog;
   private dialogContentSummarize: Dialog;
   private dialogContentTranslate: Dialog;
 
-  static overrides = {
+  public static readonly overrides = {
     /**
      * Called when a controller is instantiated and its View controls (if available) are already created.
      * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -68,12 +66,12 @@ export default class DocumentObjectPage extends BaseControllerExtension {
         synonymUsage: "fewer",
       },
       summarize: {
-        summarizeType: 'paragraph',
-        contentLength: 'short'
+        summarizeType: "paragraph",
+        contentLength: "short",
       },
       translate: {
-        langCode: 'en',
-      }
+        langCode: "en",
+      },
     } as ModelDialogData);
   }
 
@@ -140,10 +138,6 @@ export default class DocumentObjectPage extends BaseControllerExtension {
         controller: this,
       })) as Dialog;
     this.dialogContentTranslate.open();
-  }
-
-  async onSuggestContentAction() {
-    MessageToast.show("Custom handler invoked.");
   }
 
   /////////////////////////////////
@@ -227,7 +221,10 @@ export default class DocumentObjectPage extends BaseControllerExtension {
     const selectedIndex = event.getParameter("selectedIndex");
 
     const dialogModel = this.getView().getModel("dialog") as JSONModel;
-    dialogModel.setProperty("/summarize/summarizeType", selectedIndex === 0 ? "keySentences" : "paragraph");
+    dialogModel.setProperty(
+      "/summarize/summarizeType",
+      selectedIndex === 0 ? "keySentences" : "paragraph"
+    );
   }
 
   onDialogSummarizeCancelPress() {
@@ -268,5 +265,34 @@ export default class DocumentObjectPage extends BaseControllerExtension {
   onDialogTranslateCancelPress() {
     this.dialogContentTranslate.close();
     this.dialogContentTranslate.destroy();
+  }
+
+  ////////////////////////////
+  //// FRAGMENT CALLBACKS ////
+  ////////////////////////////
+
+  async onFragmentSuggestContentAction(instruction: string) {
+    if (instruction) {
+      this.getRichTextEditor().setBusy(true);
+      (await this.base
+        .getExtensionAPI()
+        .getEditFlow()
+        .invokeAction("AiWriterService.suggestContent", {
+          contexts: this.getRichTextEditor().getBindingContext() as Context,
+          model: this.getView().getModel() as ODataModel,
+          skipParameterDialog: true,
+          parameterValues: [
+            {
+              name: "instruction",
+              value: instruction,
+            },
+            {
+              name: "cursorPos",
+              value: this.getSelectionRangeFromEditor().startPos,
+            },
+          ],
+        })) as { value: string };
+      this.getRichTextEditor().setBusy(false);
+    }
   }
 }

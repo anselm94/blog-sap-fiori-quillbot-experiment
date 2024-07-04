@@ -162,7 +162,7 @@
                 "body": {
                   "sections": {
                     "SectionRichTextEditor": {
-                      "template": "aiwriter.ext.fragment.SectionRichTextEditor",
+                      "template": "aiwriter.ext.fragment.SectionEditor",
                       "title": "{i18n>writeWithAi}"
                     }
                   }
@@ -193,16 +193,6 @@
                       "position": {
                         "placement": "After",
                         "anchor": "content-summarize"
-                      }
-                    },
-                    "content-suggesttext": {
-                      "press": ".extension.aiwriter.ext.controller.DocumentObjectPage.onSuggestContentAction",
-                      "visible": true,
-                      "enabled": true,
-                      "text": "{i18n>suggestText}",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "content-translate"
                       }
                     }
                   }

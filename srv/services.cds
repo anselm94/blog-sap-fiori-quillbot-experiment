@@ -34,7 +34,7 @@ service AiWriterService {
 
     entity Documents as projection on aiwriter.Documents
         actions {
-            action suggestContent(instruction : String(100), cursorPos : Integer) returns Documents;
+            action suggestContent(instruction : String(100), cursorPos : Integer);
         };
 
     action paraphraseContent(content : String, paraphraseMode: ParaphraseMode, synonymUsage : SynonymUsage) returns String;
